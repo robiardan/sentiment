@@ -9,8 +9,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory, StopWordRemover, ArrayDictionary
 
-# Ensure nltk vader_lexicon is downloaded
-nltk.download('vader_lexicon')
+# Unduh data NLTK ke folder lokal
+nltk.download('vader_lexicon', download_dir='./nltk_data')
 
 # Function to clean text
 def clean_twitter_text(text):

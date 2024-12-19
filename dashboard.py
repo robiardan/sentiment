@@ -11,6 +11,8 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 
 # Unduh data NLTK ke folder lokal
 nltk.download('vader_lexicon', download_dir='./nltk_data')
+nltk.download('wordnet', download_dir='./nltk_data')
+nltk.download('omw-1.4', download_dir='./nltk_data')  # for lemmatizer
 
 # Function to clean text
 def clean_twitter_text(text):
@@ -115,19 +117,13 @@ if uploaded_file:
         wordcloud_positive = WordCloud(width=800, height=400, background_color="white").generate(positive_words)
 
         st.write("WordCloud untuk Sentimen Positif")
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud_positive, interpolation="bilinear")
-        plt.axis("off")
-        st.pyplot(plt)
+        st.image(wordcloud_positive.to_array(), use_column_width=True)
 
         negative_words = " ".join(df[df['sentiment'] == 'negatif']['clean_text'])
         wordcloud_negative = WordCloud(width=800, height=400, background_color="white").generate(negative_words)
 
         st.write("WordCloud untuk Sentimen Negatif")
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud_negative, interpolation="bilinear")
-        plt.axis("off")
-        st.pyplot(plt)
+        st.image(wordcloud_negative.to_array(), use_column_width=True)
 
         st.subheader("Analisis Topik dengan LDA")
         n_topics = st.slider("Jumlah Topik", 2, 10, 3)

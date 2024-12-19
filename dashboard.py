@@ -9,7 +9,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory, StopWordRemover, ArrayDictionary
 
-# Unduh data NLTK ke folder lokal
+# Ensure the necessary NLTK resources are downloaded
 nltk.download('vader_lexicon', download_dir='./nltk_data')
 nltk.download('wordnet', download_dir='./nltk_data')
 nltk.download('omw-1.4', download_dir='./nltk_data')  # for lemmatizer
@@ -117,13 +117,19 @@ if uploaded_file:
         wordcloud_positive = WordCloud(width=800, height=400, background_color="white").generate(positive_words)
 
         st.write("WordCloud untuk Sentimen Positif")
-        st.image(wordcloud_positive.to_array(), use_column_width=True)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud_positive, interpolation="bilinear")
+        plt.axis("off")
+        st.pyplot(plt)
 
         negative_words = " ".join(df[df['sentiment'] == 'negatif']['clean_text'])
         wordcloud_negative = WordCloud(width=800, height=400, background_color="white").generate(negative_words)
 
         st.write("WordCloud untuk Sentimen Negatif")
-        st.image(wordcloud_negative.to_array(), use_column_width=True)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wordcloud_negative, interpolation="bilinear")
+        plt.axis("off")
+        st.pyplot(plt)
 
         st.subheader("Analisis Topik dengan LDA")
         n_topics = st.slider("Jumlah Topik", 2, 10, 3)
